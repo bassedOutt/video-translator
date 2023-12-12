@@ -9,7 +9,6 @@ def synthesize_speech_azure_to_file(text, filename, voice_name='uk-UA-PolinaNeur
     speech_config = speechsdk.SpeechConfig(subscription="abbf758f6dbb456fadc69b127e55edec", region="francecentral")
     speech_config.speech_synthesis_voice_name = voice_name
 
-    # Create a temporary file to store audio
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.wav')
     audio_config = speechsdk.audio.AudioOutputConfig(filename=temp_file.name)
     speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
@@ -23,11 +22,9 @@ def synthesize_speech_azure_to_file(text, filename, voice_name='uk-UA-PolinaNeur
                 print(f"Error details: {result.cancellation_details.error_details}")
         return None
 
-    # Close and reopen the file to ensure the data is flushed and file is readable
     temp_file.close()
     audio_segment = AudioSegment.from_wav(temp_file.name)
 
-    # Cleanup the temporary file
     os.remove(temp_file.name)
 
     fullfilename = filename + ".mp3"
@@ -36,4 +33,3 @@ def synthesize_speech_azure_to_file(text, filename, voice_name='uk-UA-PolinaNeur
 
     return audio_segment
 
-# synthesize_speech_azure_to_file(text='Мене звати Сафія Елхілло,Я забуваю арабське слово, що означає економіку',filename='my-file-1')

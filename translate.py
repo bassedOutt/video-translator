@@ -12,11 +12,10 @@ def translate_text(subtitles):
         start = subtitle['start']
         duration = subtitle['duration']
 
-        # Translate and handle potential errors
         try:
             translated = translator.translate(text)
         except TooManyRequests:
-            time.sleep(1)  # Wait for 1 second before retrying
+            time.sleep(1)
             translated = translator.translate(text)
 
         translated_subtitle = {
