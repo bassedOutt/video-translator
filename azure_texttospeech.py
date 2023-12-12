@@ -25,11 +25,14 @@ def synthesize_speech_azure_to_file(text, filename, voice_name='uk-UA-PolinaNeur
     temp_file.close()
     audio_segment = AudioSegment.from_wav(temp_file.name)
 
+    # Save as MP3
+    fullfilename = filename + "." + fileformat
+    audio_segment.export(fullfilename, format=fileformat)
+    print(f"Audio saved to {fullfilename}")
+
+    # Clean up the WAV file
     os.remove(temp_file.name)
 
-    fullfilename = filename + ".mp3"
-    audio_segment.export(fullfilename, format=fileformat)
-    print(f"Audio saved to {filename}")
-
-    return audio_segment
+    # Return the name of the MP3 file for further processing
+    return fullfilename
 
