@@ -1,0 +1,5 @@
+pytube
+deep-translator
+pydub
+youtube_transcript_api
+azure.cognitiveservices.speech
